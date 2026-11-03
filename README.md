@@ -73,11 +73,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-The training code also imports CatBoost. Install it if it is not yet included in the dependency file:
-
-```bash
-pip install catboost
-```
+CatBoost is included in the dependency file because the training pipeline uses it.
 
 ## Train the Model
 
