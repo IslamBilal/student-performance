@@ -1,4 +1,5 @@
 from flask import Flask,request,render_template,jsonify
+import os
 from src.pipeline.prediction_pipeline import CustomData,PredictPipeline
 
 application=Flask(__name__)
@@ -44,4 +45,4 @@ def predict_datapoint():
             return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=int(os.getenv('PORT', '5000')), debug=False)

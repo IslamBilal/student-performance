@@ -45,7 +45,7 @@ class ModelEvaluation:
             logging.info(f"Evaluation Metrics - RMSE: {rmse}, MAE: {mae}, R2: {r2}")
 
             # Set MLflow tracking URI
-            mlflow.set_registry_uri("http://127.0.0.1:5000")
+            mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "file:./mlruns"))
             tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
             # Create input example and infer signature

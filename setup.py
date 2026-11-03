@@ -1,27 +1,24 @@
-from setuptools import setup,find_packages
-from typing import List 
+from pathlib import Path
+from setuptools import find_packages, setup
 
-HYPEN_E_DOT='-e .'
-
-def get_requirements(file_path:str)->List[str]:
-    requirements=[]
-    with open(file_path)as file_obj:
-        requirements=file_obj.readlines()
-        requirements=[req.replace("/n","")for req in requirements]
+ROOT = Path(__file__).parent
 
 
-        if HYPEN_E_DOT in requirements:
-            requirements.remove(HYPEN_E_DOT)
+def read_requirements():
+    requirements_file = ROOT / "requirements.txt"
+    if not requirements_file.exists():
+        return []
+    return [
+        line.strip()
+        for line in requirements_file.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.strip().startswith("#") and line.strip() != "-e ."
+    ]
 
-    return requirements
 
 setup(
-    name='student performance',
-    version='0.0.1',
-    author='kunal',
-    author_email='kunalchopde98@gmail.com',
-    install_requires=get_requirements('requirements.txt'),
-    packages=find_packages()
+    name="student-performance-prediction",
+    version="0.1.0",
+    packages=find_packages(),
+    install_requires=read_requirements(),
+    python_requires=">=3.9",
 )
-
-
